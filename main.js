@@ -128,18 +128,16 @@ for (let x = rectX; x < rectX + rectWidth; x++) {
             r = 255;
             g = 255;
             b = 255;
-            a = 255;
         }
         else {
             r = 255;
             g = 0;
             b = 0;
-            a = 255;
         }
         ichimaPixels[y * txWidth * 4 + x * 4] = r;
         ichimaPixels[y * txWidth * 4 + x * 4 + 1] = g;
         ichimaPixels[y * txWidth * 4 + x * 4 + 2] = b;
-        ichimaPixels[y * txWidth * 4 + x * 4 + 3] = a;
+        ichimaPixels[y * txWidth * 4 + x * 4 + 3] = 255;
     }
 }
 // 編集後のピクセルデータからテクスチャ作成
