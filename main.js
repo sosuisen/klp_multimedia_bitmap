@@ -78,37 +78,6 @@ const rectSprite = PIXI.Sprite.from(rectTexture);
 rectSprite.y = txHeight;
 app.stage.addChild(rectSprite);
 
-
-/**
- * 基本課題
- * 既存のビットマップの色をグレースケールへ修正
- */
-// 元絵からピクセルデータを取得
-const pixels2 = await app.renderer.extract.pixels(sprite);
-// ピクセルデータを編集
-for (let x = 0; x < txWidth; x++) {
-    for (let y = 0; y < txHeight; y++) {
-        let r = pixels2[y * txWidth * 4 + x * 4];
-        let g = pixels2[y * txWidth * 4 + x * 4 + 1];
-        let b = pixels2[y * txWidth * 4 + x * 4 + 2];
-        let a = pixels2[y * txWidth * 4 + x * 4 + 3];
-        // r, g, b, aの値を変更(0-255)
-        let gray = r * 0.2126 + g * 0.7152 + b * 0.0722;
-        r = g = b = gray;
-
-        pixels2[y * txWidth * 4 + x * 4] = r;
-        pixels2[y * txWidth * 4 + x * 4 + 1] = g;
-        pixels2[y * txWidth * 4 + x * 4 + 2] = b;
-        pixels2[y * txWidth * 4 + x * 4 + 3] = a;
-    }
-}
-
-// 編集後のピクセルデータからテクスチャ作成
-const grayTexture = PIXI.Texture.fromBuffer(pixels2, txWidth, txHeight);
-const graySprite = PIXI.Sprite.from(grayTexture);
-graySprite.x = txWidth * 2;
-app.stage.addChild(graySprite);
-
 /**
  * 発展課題
  * 白紙のビットマップから市松模様を作成
