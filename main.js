@@ -91,15 +91,18 @@ for (let x = 0; x < txWidth; x++) {
         let r = pixels2[y * txWidth * 4 + x * 4];
         let g = pixels2[y * txWidth * 4 + x * 4 + 1];
         let b = pixels2[y * txWidth * 4 + x * 4 + 2];
-        let a = pixels2[y * txWidth * 4 + x * 4 + 3];
-        // r, g, b, aの値を変更(0-255)
-        let gray = r * 0.2126 + g * 0.7152 + b * 0.0722;
-        r = g = b = gray;
+        // グレースケールにするための値を
+        // r, g, bの値から求めて、
+        // r, g, bへ代入する処理を書く。
+
+
+
+
+
 
         pixels2[y * txWidth * 4 + x * 4] = r;
         pixels2[y * txWidth * 4 + x * 4 + 1] = g;
         pixels2[y * txWidth * 4 + x * 4 + 2] = b;
-        pixels2[y * txWidth * 4 + x * 4 + 3] = a;
     }
 }
 
@@ -121,25 +124,16 @@ const ichimaPixels = new Uint8Array(4 * txWidth * txHeight);
 // ピクセルデータを編集
 for (let x = rectX; x < rectX + rectWidth; x++) {
     for (let y = rectY; y < rectY + rectHeight; y++) {
-        let r, g, b, a;
-        if ((x % 10 < 5  && y % 10 < 5)
-            || (x % 10 >= 5 && y % 10 >= 5)
-        ) {
-            r = 255;
-            g = 255;
-            b = 255;
-            a = 255;
-        }
-        else {
-            r = 255;
-            g = 0;
-            b = 0;
-            a = 255;
-        }
+        let r, g, b;
+        // r, g, bの値をx,y座標を元に求めてください。
+
+        
+
+
         ichimaPixels[y * txWidth * 4 + x * 4] = r;
         ichimaPixels[y * txWidth * 4 + x * 4 + 1] = g;
         ichimaPixels[y * txWidth * 4 + x * 4 + 2] = b;
-        ichimaPixels[y * txWidth * 4 + x * 4 + 3] = a;
+        ichimaPixels[y * txWidth * 4 + x * 4 + 3] = 255;
     }
 }
 // 編集後のピクセルデータからテクスチャ作成
