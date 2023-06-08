@@ -26,17 +26,18 @@ console.log(pixels);
 // ピクセルデータを編集
 for (let x = 0; x < txWidth; x++) {
     for (let y = 0; y < txHeight; y++) {
-        let r = pixels[y * txWidth * 4 + x * 4];
-        let g = pixels[y * txWidth * 4 + x * 4 + 1];
-        let b = pixels[y * txWidth * 4 + x * 4 + 2];
-        let a = pixels[y * txWidth * 4 + x * 4 + 3];
+        let index = y * txWidth + x;
+        let r = pixels[index * 4];
+        let g = pixels[index * 4 + 1];
+        let b = pixels[index * 4 + 2];
+        let a = pixels[index * 4 + 3];
         // r, g, b, aの値を変更(0-255)
         r = 255;
 
-        pixels[y * txWidth * 4 + x * 4] = r;
-        pixels[y * txWidth * 4 + x * 4 + 1] = g;
-        pixels[y * txWidth * 4 + x * 4 + 2] = b;
-        pixels[y * txWidth * 4 + x * 4 + 3] = a;
+        pixels[index * 4] = r;
+        pixels[index * 4 + 1] = g;
+        pixels[index * 4 + 2] = b;
+        pixels[index * 4 + 3] = a;
     }
 }
 
@@ -66,10 +67,11 @@ for (let x = rectX; x < rectX + rectWidth; x++) {
         let b = 0;
         let a = 255;
         // let a = 128;
-        rectPixels[y * txWidth * 4 + x * 4] = r;
-        rectPixels[y * txWidth * 4 + x * 4 + 1] = g;
-        rectPixels[y * txWidth * 4 + x * 4 + 2] = b;
-        rectPixels[y * txWidth * 4 + x * 4 + 3] = a;
+        let index = y * txWidth + x;
+        rectPixels[index * 4] = r;
+        rectPixels[index * 4 + 1] = g;
+        rectPixels[index * 4 + 2] = b;
+        rectPixels[index * 4 + 3] = a;
     }
 }
 // 編集後のピクセルデータからテクスチャ作成
@@ -88,9 +90,10 @@ const pixels2 = await app.renderer.extract.pixels(sprite);
 // ピクセルデータを編集
 for (let x = 0; x < txWidth; x++) {
     for (let y = 0; y < txHeight; y++) {
-        let r = pixels2[y * txWidth * 4 + x * 4];
-        let g = pixels2[y * txWidth * 4 + x * 4 + 1];
-        let b = pixels2[y * txWidth * 4 + x * 4 + 2];
+        let index = y * txWidth + x;
+        let r = pixels2[index * 4];
+        let g = pixels2[index * 4 + 1];
+        let b = pixels2[index * 4 + 2];
         // グレースケールにするための値を
         // r, g, bの値から求めて、
         // r, g, bへ代入する処理を書く。
@@ -100,9 +103,9 @@ for (let x = 0; x < txWidth; x++) {
 
 
 
-        pixels2[y * txWidth * 4 + x * 4] = r;
-        pixels2[y * txWidth * 4 + x * 4 + 1] = g;
-        pixels2[y * txWidth * 4 + x * 4 + 2] = b;
+        pixels2[index * 4] = r;
+        pixels2[index * 4 + 1] = g;
+        pixels2[index * 4 + 2] = b;
     }
 }
 
@@ -129,11 +132,11 @@ for (let x = rectX; x < rectX + rectWidth; x++) {
 
         
 
-
-        ichimaPixels[y * txWidth * 4 + x * 4] = r;
-        ichimaPixels[y * txWidth * 4 + x * 4 + 1] = g;
-        ichimaPixels[y * txWidth * 4 + x * 4 + 2] = b;
-        ichimaPixels[y * txWidth * 4 + x * 4 + 3] = 255;
+        let index = y * txWidth + x;
+        ichimaPixels[index * 4] = r;
+        ichimaPixels[index * 4 + 1] = g;
+        ichimaPixels[index * 4 + 2] = b;
+        ichimaPixels[index * 4 + 3] = 255;
     }
 }
 // 編集後のピクセルデータからテクスチャ作成
