@@ -88,32 +88,16 @@ app.stage.addChild(rectSprite);
 // 元絵からピクセルデータを取得
 const pixels2 = await app.renderer.extract.pixels(sprite);
 // ピクセルデータを編集
-for (let x = 0; x < txWidth; x++) {
-    for (let y = 0; y < txHeight; y++) {
-        let index = y * txWidth + x;
-        let r = pixels2[index * 4];
-        let g = pixels2[index * 4 + 1];
-        let b = pixels2[index * 4 + 2];
-        // グレースケールにするための値を
-        // r, g, bの値から求めて、
-        // r, g, bへ代入する処理を書く。
 
 
 
-
-
-
-        pixels2[index * 4] = r;
-        pixels2[index * 4 + 1] = g;
-        pixels2[index * 4 + 2] = b;
-    }
-}
 
 // 編集後のピクセルデータからテクスチャ作成
 const grayTexture = PIXI.Texture.fromBuffer(pixels2, txWidth, txHeight);
 const graySprite = PIXI.Sprite.from(grayTexture);
 graySprite.x = txWidth * 2;
 app.stage.addChild(graySprite);
+
 
 /**
  * 発展課題
