@@ -79,7 +79,7 @@ rectSprite.y = txHeight;
 app.stage.addChild(rectSprite);
 
 /**
- * 発展課題
+ * 発展課題8a
  * 白紙のビットマップから市松模様を作成
  */
 // 白紙のピクセルデータを作成
@@ -115,4 +115,34 @@ const ichimaSprite = PIXI.Sprite.from(ichimaTexture);
 ichimaSprite.x = txWidth;
 ichimaSprite.y = txHeight;
 app.stage.addChild(ichimaSprite);
+
+
+/**
+ * 発展課題8b
+ * 鏡像を追加
+ */
+const orgPixels = await app.renderer.extract.pixels(sprite);
+const mirrorPixels = new Uint8Array(4 * txWidth * txHeight);
+
+for (let x = 0; x < txWidth; x++) {
+    for (let y = 0; y < txHeight; y++) {
+        let r = orgPixels[y * txWidth * 4 + (txWidth - x) * 4];
+        let g = orgPixels[y * txWidth * 4 + (txWidth - x) * 4 + 1];
+        let b = orgPixels[y * txWidth * 4 + (txWidth - x) * 4 + 2];
+        let a = orgPixels[y * txWidth * 4 + (txWidth - x) * 4 + 3];       
+
+        mirrorPixels[y * txWidth * 4 + x * 4] = r;
+        mirrorPixels[y * txWidth * 4 + x * 4 + 1] = g;
+        mirrorPixels[y * txWidth * 4 + x * 4 + 2] = b;
+        mirrorPixels[y * txWidth * 4 + x * 4 + 3] = a;
+    }
+}
+
+// 編集後のピクセルデータからテクスチャ作成
+const mirrorTexture = PIXI.Texture.fromBuffer(mirrorPixels, txWidth, txHeight);
+const mirrorSprite = PIXI.Sprite.from(mirrorTexture);
+mirrorSprite.x = txWidth * 2;
+mirrorSprite.y = txHeight;
+app.stage.addChild(mirrorSprite);
+
 
