@@ -100,7 +100,7 @@ app.stage.addChild(graySprite);
 
 
 /**
- * 発展課題
+ * 発展課題8a
  * 白紙のビットマップから市松模様を作成
  */
 // 白紙のピクセルデータを作成
@@ -129,4 +129,9 @@ const ichimaSprite = PIXI.Sprite.from(ichimaTexture);
 ichimaSprite.x = txWidth;
 ichimaSprite.y = txHeight;
 app.stage.addChild(ichimaSprite);
+
+/**
+ * 発展課題8b
+ * 鏡像を追加
+ */
 
