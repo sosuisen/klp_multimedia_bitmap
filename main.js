@@ -108,21 +108,9 @@ const ichimaPixels = new Uint8Array(4 * txWidth * txHeight);
 
 // 描画する矩形の範囲は練習２と同じ
 
-// ピクセルデータを編集
-for (let x = rectX; x < rectX + rectWidth; x++) {
-    for (let y = rectY; y < rectY + rectHeight; y++) {
-        let r, g, b;
-        // r, g, bの値をx,y座標を元に求めてください。
 
-        
 
-        let index = y * txWidth + x;
-        ichimaPixels[index * 4] = r;
-        ichimaPixels[index * 4 + 1] = g;
-        ichimaPixels[index * 4 + 2] = b;
-        ichimaPixels[index * 4 + 3] = 255;
-    }
-}
+
 // 編集後のピクセルデータからテクスチャ作成
 const ichimaTexture = PIXI.Texture.fromBuffer(ichimaPixels, txWidth, txHeight);
 const ichimaSprite = PIXI.Sprite.from(ichimaTexture);
