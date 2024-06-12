@@ -161,15 +161,12 @@ const mirrorPixels = new Uint8Array(4 * txWidth * txHeight);
 
 for (let x = 0; x < txWidth; x++) {
     for (let y = 0; y < txHeight; y++) {
-        let r = orgPixels[y * txWidth * 4 + (txWidth - x) * 4];
-        let g = orgPixels[y * txWidth * 4 + (txWidth - x) * 4 + 1];
-        let b = orgPixels[y * txWidth * 4 + (txWidth - x) * 4 + 2];
-        let a = orgPixels[y * txWidth * 4 + (txWidth - x) * 4 + 3];       
-
-        mirrorPixels[y * txWidth * 4 + x * 4] = r;
-        mirrorPixels[y * txWidth * 4 + x * 4 + 1] = g;
-        mirrorPixels[y * txWidth * 4 + x * 4 + 2] = b;
-        mirrorPixels[y * txWidth * 4 + x * 4 + 3] = a;
+        let index = y * txWidth + x;
+        let index2 = y * txWidth + (txWidth - x);
+        mirrorPixels[index * 4] = orgPixels[index2 * 4];
+        mirrorPixels[index * 4 + 1] = orgPixels[index2 * 4 + 1];
+        mirrorPixels[index * 4 + 2] = orgPixels[index2 * 4 + 2];
+        mirrorPixels[index * 4 + 3] = orgPixels[index2 * 4 + 3];
     }
 }
 
