@@ -92,9 +92,9 @@ app.stage.addChild(rectSprite);
 const pixelsOutput2 = app.renderer.extract.pixels(sprite);
 const { pixels: pixels2 } = pixelsOutput2;
 // ピクセルデータを編集
-for (let x = 0; x < txWidth; x++) {
-    for (let y = 0; y < txHeight; y++) {
-        let index = y * txWidth + x;
+for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+        let index = y * width + x;
         let r = pixels2[index * 4];
         let g = pixels2[index * 4 + 1];
         let b = pixels2[index * 4 + 2];
@@ -137,9 +137,9 @@ for (let x = rectX; x < rectX + rectWidth; x++) {
         let r, g, b;
         // r, g, bの値をx,y座標を元に求めてください。
 
-        
 
-        let index = y * txWidth + x;
+
+        let index = y * width + x;
         ichimaPixels[index * 4] = r;
         ichimaPixels[index * 4 + 1] = g;
         ichimaPixels[index * 4 + 2] = b;
