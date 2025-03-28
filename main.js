@@ -112,8 +112,7 @@ app.stage.addChild(graySprite);
  * 白紙のビットマップから市松模様を作成
  */
 // 白紙のピクセルデータを作成
-const ichimaPixelsOutput = new Uint8ClampedArray(4 * width * height);
-const { pixels: ichimaPixels } = ichimaPixelsOutput;
+const ichimaPixels = new Uint8ClampedArray(4 * width * height);
 // 描画する矩形の範囲は練習２と同じ
 
 
