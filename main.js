@@ -6,9 +6,6 @@ await app.init({ width: 768, height: 512 });
 // app.viewはcanvas要素
 document.body.appendChild(app.canvas);
 
-//const txWidth = 256;
-//const txHeight = 256;
-
 /**
  * 練習１
  * 既存のビットマップの色を修正
@@ -24,14 +21,6 @@ const { pixels, width, height } = pixelsOutput;
 console.log(pixels);
 
 // ピクセルデータを編集
-<<<<<<< HEAD
-for (let x = 0; x < txWidth; x++) {
-    for (let y = 0; y < txHeight; y++) {
-        let r = pixels[y * txWidth * 4 + x * 4];
-        let g = pixels[y * txWidth * 4 + x * 4 + 1];
-        let b = pixels[y * txWidth * 4 + x * 4 + 2];
-        let a = pixels[y * txWidth * 4 + x * 4 + 3];
-=======
 for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
         let index = y * width + x;
@@ -39,14 +28,13 @@ for (let x = 0; x < width; x++) {
         let g = pixels[index * 4 + 1];
         let b = pixels[index * 4 + 2];
         let a = pixels[index * 4 + 3];
->>>>>>> 1665fbb (fix: v8)
         // r, g, b, aの値を変更(0-255)
         r = 255;
 
-        pixels[y * txWidth * 4 + x * 4] = r;
-        pixels[y * txWidth * 4 + x * 4 + 1] = g;
-        pixels[y * txWidth * 4 + x * 4 + 2] = b;
-        pixels[y * txWidth * 4 + x * 4 + 3] = a;
+        pixels[y * width * 4 + x * 4] = r;
+        pixels[y * width * 4 + x * 4 + 1] = g;
+        pixels[y * width * 4 + x * 4 + 2] = b;
+        pixels[y * width * 4 + x * 4 + 3] = a;
     }
 }
 
@@ -80,18 +68,11 @@ for (let x = rectX; x < rectX + rectWidth; x++) {
         let b = 0;
         let a = 255;
         // let a = 128;
-<<<<<<< HEAD
-        rectPixels[y * txWidth * 4 + x * 4] = r;
-        rectPixels[y * txWidth * 4 + x * 4 + 1] = g;
-        rectPixels[y * txWidth * 4 + x * 4 + 2] = b;
-        rectPixels[y * txWidth * 4 + x * 4 + 3] = a;
-=======
         let index = y * width + x;
         rectPixels[index * 4] = r;
         rectPixels[index * 4 + 1] = g;
         rectPixels[index * 4 + 2] = b;
         rectPixels[index * 4 + 3] = a;
->>>>>>> 1665fbb (fix: v8)
     }
 }
 // 編集後のピクセルデータからテクスチャ作成
@@ -113,9 +94,9 @@ app.stage.addChild(rectSprite);
 const pixelsOutput2 = app.renderer.extract.pixels(sprite);
 const { pixels: pixels2 } = pixelsOutput2;
 // ピクセルデータを編集
-for (let x = 0; x < txWidth; x++) {
-    for (let y = 0; y < txHeight; y++) {
-        let index = y * txWidth + x;
+for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+        let index = y * width + x;
         let r = pixels2[index * 4];
         let g = pixels2[index * 4 + 1];
         let b = pixels2[index * 4 + 2];
@@ -149,15 +130,14 @@ app.stage.addChild(graySprite);
  * 白紙のビットマップから市松模様を作成
  */
 // 白紙のピクセルデータを作成
-const ichimaPixelsOutput = new Uint8Array(4 * width * height);
-const { pixels: ichimaPixels } = ichimaPixelsOutput;
+const ichimaPixels = new Uint8ClampedArray(4 * width * height);
 // 描画する矩形の範囲は練習２と同じ
 
 // ピクセルデータを編集
 for (let x = rectX; x < rectX + rectWidth; x++) {
     for (let y = rectY; y < rectY + rectHeight; y++) {
         let r, g, b, a;
-        if ((x % 10 < 5  && y % 10 < 5)
+        if ((x % 10 < 5 && y % 10 < 5)
             || (x % 10 >= 5 && y % 10 >= 5)
         ) {
             r = 255;
@@ -169,10 +149,10 @@ for (let x = rectX; x < rectX + rectWidth; x++) {
             g = 0;
             b = 0;
         }
-        ichimaPixels[y * txWidth * 4 + x * 4] = r;
-        ichimaPixels[y * txWidth * 4 + x * 4 + 1] = g;
-        ichimaPixels[y * txWidth * 4 + x * 4 + 2] = b;
-        ichimaPixels[y * txWidth * 4 + x * 4 + 3] = 255;
+        ichimaPixels[y * width * 4 + x * 4] = r;
+        ichimaPixels[y * width * 4 + x * 4 + 1] = g;
+        ichimaPixels[y * width * 4 + x * 4 + 2] = b;
+        ichimaPixels[y * width * 4 + x * 4 + 3] = 255;
     }
 }
 // 編集後のピクセルデータからテクスチャ作成
@@ -191,13 +171,14 @@ app.stage.addChild(ichimaSprite);
  * 発展課題8b
  * 鏡像を追加
  */
-const orgPixels = await app.renderer.extract.pixels(sprite);
-const mirrorPixels = new Uint8Array(4 * txWidth * txHeight);
+const orgPixelsOutput = app.renderer.extract.pixels(sprite);
+const { pixels: orgPixels } = orgPixelsOutput;
+const mirrorPixels = new Uint8Array(4 * width * height);
 
-for (let x = 0; x < txWidth; x++) {
-    for (let y = 0; y < txHeight; y++) {
-        let index = y * txWidth + x;
-        let index2 = y * txWidth + (txWidth - x);
+for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+        let index = y * width + x;
+        let index2 = y * width + (width - x);
         mirrorPixels[index * 4] = orgPixels[index2 * 4];
         mirrorPixels[index * 4 + 1] = orgPixels[index2 * 4 + 1];
         mirrorPixels[index * 4 + 2] = orgPixels[index2 * 4 + 2];
@@ -206,10 +187,14 @@ for (let x = 0; x < txWidth; x++) {
 }
 
 // 編集後のピクセルデータからテクスチャ作成
-const mirrorTexture = PIXI.Texture.fromBuffer(mirrorPixels, txWidth, txHeight);
+const mirrorTexture = PIXI.Texture.from({
+    resource: mirrorPixels,
+    width,
+    height
+});
 const mirrorSprite = PIXI.Sprite.from(mirrorTexture);
-mirrorSprite.x = txWidth * 2;
-mirrorSprite.y = txHeight;
+mirrorSprite.x = width * 2;
+mirrorSprite.y = height;
 app.stage.addChild(mirrorSprite);
 
 
