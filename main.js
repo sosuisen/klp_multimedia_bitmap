@@ -1,9 +1,10 @@
 import * as PIXI from 'pixi.js'
 
-const app = new PIXI.Application({ width: 768, height: 512 });
+const app = new PIXI.Application();
+await app.init({ width: 768, height: 512 });
 
 // app.viewはcanvas要素
-document.body.appendChild(app.view);
+document.body.appendChild(app.canvas);
 
 const txWidth = 256;
 const txHeight = 256;
@@ -12,15 +13,13 @@ const txHeight = 256;
  * 練習１
  * 既存のビットマップの色を修正
  */
-// テクスチャがロード完了するのを待って先に進む必要がある。
-// ロード未完了のままでは renderer.extract.pixelsが正しく動作しないため。
-const texture = await PIXI.Assets.load('kyocotan256x256.png');
-const sprite = PIXI.Sprite.from(texture);
+await PIXI.Assets.load('kyocotan256x256.png');
+const sprite = PIXI.Sprite.from('kyocotan256x256.png');
 app.stage.addChild(sprite);
 
 // ピクセルデータを取得
 // 得られるデータの型はUint8Array（8 ビット符号なし整数値の配列）
-const pixels = await app.renderer.extract.pixels(sprite);
+const pixels = app.renderer.extract.pixels(sprite);
 console.log(pixels);
 
 // ピクセルデータを編集
