@@ -2,8 +2,6 @@ import * as PIXI from 'pixi.js'
 
 const app = new PIXI.Application();
 await app.init({ width: 768, height: 512 });
-
-// app.viewはcanvas要素
 document.body.appendChild(app.canvas);
 
 /**
@@ -53,7 +51,7 @@ app.stage.addChild(newSprite);
  * 白紙のビットマップから長方形の絵を描画
  */
 // 白紙のピクセルデータを作成
-const rectPixels = new Uint8Array(4 * width * height);
+const rectPixels = new Uint8ClampedArray(4 * width * height);
 // 描画する矩形
 const rectX = 64;
 const rectY = 96;
